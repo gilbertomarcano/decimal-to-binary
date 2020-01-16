@@ -1,3 +1,8 @@
+/**First realease of the script that converts a float number into its binary representation
+ * 
+ * Released on 01/16/2020
+ * */
+
 #include <iostream>
 
 #define print(msg) std::cout << msg << std::endl
