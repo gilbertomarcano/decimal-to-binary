@@ -178,15 +178,23 @@ public:
 // Main class of the program
 int main(void)
 {
-    // Prompt for number
-    float number;
-    std::cout << "Enter a number: ";
-    std::cin >> number;
-    
-    str bin = FloatToBinary::to_ieee754(number);
-    print("Binary representation: " << bin);
-    print("Byte format: " << FloatToBinary::byte_format(bin));
-    print("IEEE-754 format:" << FloatToBinary::ieee754_format(bin));
+    while (true)
+    {
+        // Prompt for number
+        float number;
+        std::cout << "Enter a number: ";
+        std::cin >> number;
+        
+        str bin = FloatToBinary::to_ieee754(number);
+        print("Binary representation: " << bin);
+        print("Byte format: " << FloatToBinary::byte_format(bin));
+        print("IEEE-754 format: " << FloatToBinary::ieee754_format(bin));
 
-    std::cin.get();
+        // Prompt for exit
+        char exit;
+        std::cout << "Enter 0 exit, any other to repeat: ";
+        std::cin >> exit;
+
+        if (exit == '0') break;
+    }
 }
