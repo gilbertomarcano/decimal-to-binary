@@ -60,6 +60,21 @@ private:
         return bin;        
     }
 
+    // Get the digits of the binary number without point
+    static str get_digits(str bin)
+    {
+        str digits("");
+        for (int i = 0; i < bin.size(); i++)
+        {
+            if (bin[i] != '.')
+            {
+                digits += bin[i];
+            }
+        }
+
+        return digits;
+    }
+
 public:
 
     // Member functions
@@ -77,7 +92,7 @@ public:
             bin.append("." + decimal_part);
         }
 
-        return bin;
+        return get_digits(bin);
     }
 };
 
@@ -85,7 +100,7 @@ public:
 // Main class of the program
 int main(void)
 {
-    print(FloatToBinary::to_bin(6.4));
+    print(FloatToBinary::to_bin(4.25));
 
     std::cin.get();
 }
