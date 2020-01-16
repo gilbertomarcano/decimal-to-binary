@@ -78,8 +78,13 @@ private:
 public:
 
     // Member functions
+
+    // Convert a decimal number into its binary representation
     static str to_bin(float number)
     {
+        // Get the absolute value of the number
+        float abs = number < 0 ? number * -1 : number;
+        
         // Get the integer and the decimal part in binary of the number
         str integer_part = int_to_bin((int)number);
         str decimal_part = dec_to_bin(number - (int)number);
@@ -92,15 +97,50 @@ public:
             bin.append("." + decimal_part);
         }
 
-        return get_digits(bin);
+        return bin;
     }
+
+    // Convert a decimal number into its standard IEEE-754 binary representation
+    static str to_ieee754(float number)
+    {
+        // Get the sign bit
+        str sign_bit = number < 0 ? "1" : "0";
+
+        // Get the integer part of the binary number
+        str integer_part = int_to_bin((int)number);
+        // Get the exponent
+        str exponent = int_to_bin(127 + integer_part.size() - 1);
+        // Adjust the size of the exponent to 8 bits
+        if (exponent.size() < 8)
+        {
+            exponent = "0" + exponent;
+        }
+
+        // Get the digits of the binary number
+        str digits = get_digits(to_bin(number));
+        // Get the mantissa from the digits of the binary number excluding the first one
+        str mantissa = str(digits.begin() + 1, digits.end());
+        // Adjust the size of the mantissa to 23 bits
+        while (mantissa.size() < 23)
+        {
+            mantissa += "0";
+        }
+
+        // Get the binary IEEE-754 format representation
+        str bin_ieee754 = str(sign_bit + exponent + mantissa);
+
+        return bin_ieee754;
+    }
+
 };
 
 
 // Main class of the program
 int main(void)
 {
-    print(FloatToBinary::to_bin(4.25));
+    str b = FloatToBinary::to_ieee754(32.25);
+    print(b);
+    print(b.size());
 
     std::cin.get();
 }
