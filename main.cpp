@@ -132,15 +132,56 @@ public:
         return bin_ieee754;
     }
 
-};
+    /* Return a byte format of a binary number 
+        param bin should be in IEEE-754 binary representation
+    */
+    static str byte_format(str bin)
+    {
+        str format("");
+        for (int i = 0; i < 32; i++)
+        {
+            if (i % 4 == 0 && i != 0)
+            {
+                format += " ";
+            }
+            format += bin[i];
+        }
 
+        return format;
+    }
+
+    /* Return a IEEE-754 format of a binary number
+        param bin should be in IEEE-754 binary representation
+    */
+    static str ieee754_format(str bin)
+    {
+        str format("");
+        for (int i = 0; i < 32; i++)
+        {
+            if (i == 1 || i == 9)
+            {
+                format += " ";
+            }
+            format += bin[i];
+        }
+
+        return format;
+    } 
+
+};
 
 // Main class of the program
 int main(void)
 {
-    str b = FloatToBinary::to_ieee754(32.25);
-    print(b);
-    print(b.size());
+    // Prompt for number
+    float number;
+    std::cout << "Enter a number: ";
+    std::cin >> number;
+    
+    str bin = FloatToBinary::to_ieee754(number);
+    print("Binary representation: " << bin);
+    print("Byte format: " << FloatToBinary::byte_format(bin));
+    print("IEEE-754 format:" << FloatToBinary::ieee754_format(bin));
 
     std::cin.get();
 }
