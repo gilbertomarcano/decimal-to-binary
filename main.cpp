@@ -91,8 +91,8 @@ public:
         float abs = number < 0 ? number * -1 : number;
         
         // Get the integer and the decimal part in binary of the number
-        str integer_part = int_to_bin((int)number);
-        str decimal_part = dec_to_bin(number - (int)number);
+        str integer_part = int_to_bin((int)abs);
+        str decimal_part = dec_to_bin(abs - (int)abs);
 
         // Get the binary number
         str bin = str(integer_part);
