@@ -18,12 +18,12 @@
     <ClCompile Include="memory-representator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="float_to_binary.cpp">
+    <ClCompile Include="binary-conversor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="float_to_binary.h">
+    <ClInclude Include="binary-conversor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

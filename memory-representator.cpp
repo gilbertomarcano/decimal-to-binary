@@ -6,7 +6,7 @@
 
 #include <iostream>
 
-#include "float_to_binary.h"
+#include "binary-conversor.h"
 
 
 #define print(msg) std::cout << msg << std::endl
@@ -14,9 +14,20 @@
 // Main class of the program
 int main(void)
 {
-    while (true)
+    int number = 4;
+    float f = 4.00323;
+
+    std::string bin = "101";
+    
+    print(BinaryConversor::to_bin(8));
+    print(BinaryConversor::to_bin(-8.125f));
+
+    /*while (true)
     {
-        // Prompt for number
+        
+        
+        
+        //Prompt for number
         float number;
         std::cout << "Enter a number: ";
         std::cin >> number;
@@ -26,11 +37,11 @@ int main(void)
         print("Byte format: " << FloatToBinary::byte_format(bin));
         print("IEEE-754 format: " << FloatToBinary::ieee754_format(bin));
 
-        // Prompt for exit
+         Prompt for exit
         char exit;
         std::cout << "Enter 0 exit, any other to repeat: ";
         std::cin >> exit;
 
         if (exit == '0') break;
-    }
+    }*/
 }
