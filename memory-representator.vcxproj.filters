@@ -15,15 +15,21 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="memory-representator.cpp">
+    <ClCompile Include="src\memory-representator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="binary-conversor.cpp">
+    <ClCompile Include="src\binary-conversor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="binary-conversor.h">
+    <ClInclude Include="src\memory-representator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\binary-conversor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

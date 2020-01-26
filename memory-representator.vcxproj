@@ -147,11 +147,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="binary-conversor.cpp" />
-    <ClCompile Include="memory-representator.cpp" />
+    <ClCompile Include="src\binary-conversor.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\memory-representator.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="binary-conversor.h" />
+    <ClInclude Include="src\binary-conversor.h" />
+    <ClInclude Include="src\memory-representator.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
