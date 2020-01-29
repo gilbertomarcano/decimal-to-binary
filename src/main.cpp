@@ -10,18 +10,19 @@
 #include "binary-conversor.h"
 #include "memory-representator.h"
 
+
+#include <typeinfo>
+
 #define print(msg) std::cout << msg << std::endl
 
 // Main class of the program
 int main(void)
 {
-    float f = 4.0f;
-    print(MemoryRepresentator::to_memory(1.125f));
-    print(MemoryRepresentator::to_memory(2.125f));
-    print(MemoryRepresentator::to_memory(3.125f));
-    print(MemoryRepresentator::to_memory(4.125f));
-    print(MemoryRepresentator::to_memory(5.125f));
-    print(MemoryRepresentator::to_memory(6.125f));
+    int i = -18086;
+    long j = -18086;
 
-
+    float f = -1.0f;
+    long long l = 3232424;
+    print(MemoryRepresentator::to_memory(i));
+    print(MemoryRepresentator::to_memory(l));
 }

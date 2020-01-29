@@ -24,6 +24,29 @@ void BinaryConversor::positive_int_to_bin(int number, std::string& bin)
     }
 }
 
+// Convert a positve integer to its binary representation
+void BinaryConversor::positive_long_long_to_bin(long long number, std::string& bin)
+{
+    while (true)
+    {
+        // Get the mod
+        int mod = number % 2;
+
+        // Append a 0 or a 1 at the front of the binary string
+        bin = mod ? "1" + bin : "0" + bin;
+
+        // Update the number for the next iteration
+        number /= 2;
+
+        // Check for break the loop
+        if (number == 0)
+        {
+            break;
+        }
+    }
+}
+
+
 // Convert a negative integer in its binary representation
 void BinaryConversor::negative_int_to_bin(int number, std::string& bin)
 {
@@ -39,6 +62,25 @@ void BinaryConversor::negative_int_to_bin(int number, std::string& bin)
     // Invert the binary number
     invert_bin(bin);
     
+    // Add 1 to the binary number
+    add_one(bin);
+}
+
+// Convert a negative long long in its binary representation
+void BinaryConversor::negative_long_long_to_bin(long long number, std::string& bin)
+{
+    // Get the number in binary
+    positive_long_long_to_bin(number, bin);
+
+    // Fill with 0 until size is 32 bits long
+    while (bin.size() < 64)
+    {
+        bin = "0" + bin;
+    }
+
+    // Invert the binary number
+    invert_bin(bin);
+
     // Add 1 to the binary number
     add_one(bin);
 }
@@ -98,6 +140,14 @@ const std::string BinaryConversor::to_bin(const int& number)
 {
     std::string bin("");
     number < 0 ? negative_int_to_bin(number, bin) : positive_int_to_bin(number, bin);
+    return bin;
+}
+
+// Get the binary representation of a signed long long type number
+const std::string BinaryConversor::to_bin(const long long& number)
+{
+    std::string bin("");
+    number < 0 ? negative_int_to_bin(number, bin) : positive_long_long_to_bin(number, bin);
     return bin;
 }
 
