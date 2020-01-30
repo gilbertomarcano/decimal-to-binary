@@ -1,8 +1,9 @@
 /**First realease of the script that converts a float number into its binary representation
  *
- * Released on 01/16/2020
+ * First release on 01/16/2020
  * Visual Studio project on 01/24/2020
  * Memory Representator included on 01/25/2020
+ * Bin class and second release on 01/30/2020
  * */
 
 #include <iostream>
@@ -19,6 +20,8 @@ void homework();
 int main(void)
 {
     homework();
+
+    std::cin.get();
 }
 
 // Show the memory representation of the next values:
@@ -58,8 +61,7 @@ void homework()
 
     // g. char *p; *p = 'Z';
     char* p;
-    char c;
-    p = &c;
+    p = new char;
     *p = 'Z';
     binary = BinaryConversor::to_bin(*p);
     std::cout << "g. " << MemoryRepresentator::to_memory(binary) << std::endl;
@@ -81,8 +83,7 @@ void homework()
 
     // k. int *p1; *p1 = 15678;
     int* p1;
-    int i1;
-    p1 = &i1;
+    p1 = new int;
     *p1 = 15678;
     binary = BinaryConversor::to_bin(*p1);
     std::cout << "k. " << MemoryRepresentator::to_memory(binary) << std::endl;
