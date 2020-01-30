@@ -147,11 +147,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\bin.cpp" />
     <ClCompile Include="src\binary-conversor.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\memory-representator.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\bin.h" />
     <ClInclude Include="src\binary-conversor.h" />
     <ClInclude Include="src\memory-representator.h" />
   </ItemGroup>

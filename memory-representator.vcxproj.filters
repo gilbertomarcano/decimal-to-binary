@@ -24,12 +24,18 @@
     <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\bin.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\memory-representator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\binary-conversor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\bin.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -2,16 +2,22 @@
 
 #include "binary-conversor.h"
 
-// Convert a positve integer to its binary representation
-void BinaryConversor::positive_int_to_bin(int number, std::string& bin)
+/*
+********************************
+*
+*   Private member functions
+*
+********************************
+*/
+
+std::string BinaryConversor::uint_to_bin(unsigned long long number)
 {
+    std::string binary_string("");
+
     while (true)
     {
-        // Get the mod
-        int mod = number % 2;
-
-        // Append a 0 or a 1 at the front of the binary string
-        bin = mod ? "1" + bin : "0" + bin;
+        // Prepend a 0 or a 1 at the beggining of the binary string
+        binary_string = number % 2 ? "1" + binary_string : "0" + binary_string;
 
         // Update the number for the next iteration
         number /= 2;
@@ -22,95 +28,99 @@ void BinaryConversor::positive_int_to_bin(int number, std::string& bin)
             break;
         }
     }
+
+    return binary_string;
 }
 
-// Convert a positve integer to its binary representation
-void BinaryConversor::positive_long_long_to_bin(long long number, std::string& bin)
+// Convert a positve 8 bits integer to its binary representation
+bin BinaryConversor::uint8_to_bin(unsigned char number)
 {
-    while (true)
-    {
-        // Get the mod
-        int mod = number % 2;
-
-        // Append a 0 or a 1 at the front of the binary string
-        bin = mod ? "1" + bin : "0" + bin;
-
-        // Update the number for the next iteration
-        number /= 2;
-
-        // Check for break the loop
-        if (number == 0)
-        {
-            break;
-        }
-    }
+    return bin(uint_to_bin(number), sizeof(char));
 }
 
+// Convert a positve 16 bits integer to its binary representation
+bin BinaryConversor::uint16_to_bin(unsigned short number)
+{
+    return bin(uint_to_bin(number), sizeof(short));
+}
+
+// Convert a positve 32 bits integer to its binary representation
+bin BinaryConversor::uint32_to_bin(unsigned int number)
+{
+    return bin(uint_to_bin(number), sizeof(int));
+}
+
+// Convert a positve 64 bits integer to its binary representation
+bin BinaryConversor::uint64_to_bin(unsigned long long number)
+{
+    return bin(uint_to_bin(number), sizeof(long long));
+}
 
 // Convert a negative integer in its binary representation
-void BinaryConversor::negative_int_to_bin(int number, std::string& bin)
+bin BinaryConversor::int16_to_bin(short number)
 {
     // Get the number in binary
-    positive_int_to_bin(number, bin);
-    
-    // Fill with 0 until size is 32 bits long
-    while (bin.size() < 32)
+    bin binary = uint16_to_bin(abs(number));
+
+    if (number >= 0)
     {
-        bin = "0" + bin;
+        return binary;
     }
 
     // Invert the binary number
-    invert_bin(bin);
-    
+    binary.inverse();
+
     // Add 1 to the binary number
-    add_one(bin);
+    binary += bin("1", 1);
+
+    return binary;
 }
 
-// Convert a negative long long in its binary representation
-void BinaryConversor::negative_long_long_to_bin(long long number, std::string& bin)
+// Convert a negative integer in its binary representation
+bin BinaryConversor::int32_to_bin(int number)
 {
     // Get the number in binary
-    positive_long_long_to_bin(number, bin);
+    bin binary = uint32_to_bin(abs(number));
 
-    // Fill with 0 until size is 32 bits long
-    while (bin.size() < 64)
+    if (number >= 0)
     {
-        bin = "0" + bin;
+        return binary;
     }
 
     // Invert the binary number
-    invert_bin(bin);
+    binary.inverse();
 
     // Add 1 to the binary number
-    add_one(bin);
+    binary += bin("1", 1);
+    
+    return binary;
 }
 
-// Convert the one's into zero's and the zero's into one's in a binary string
-void BinaryConversor::invert_bin(std::string& bin)
+// Convert a negative integer in its binary representation
+bin BinaryConversor::int64_to_bin(long long number)
 {
-    for (char& bit : bin)
-    {
-        bit = bit == '0' ? '1' : '0';
-    }
-}
+    // Get the number in binary
+    bin binary = uint64_to_bin(abs(number));
 
-// Add a one in a binary string due binary sum
-void BinaryConversor::add_one(std::string& bin)
-{
-    for (int i = bin.size() - 1; i > -1; i--)
+    if (number >= 0)
     {
-        if (bin[i] == '0')
-        {
-            bin[i] = '1';
-            break;
-        }
-        bin[i] = '0';
+        return binary;
     }
+
+    // Invert the binary number
+    binary.inverse();
+    
+    // Add 1 to the binary number
+    std::string one("1");
+    binary += bin("1", 1);
+
+    return binary;
 }
 
 // Convert the decimal part of a float into its binary representation
-void BinaryConversor::decimal_to_bin(float decimal, std::string& bin)
+std::string BinaryConversor::dec32_to_bin(float decimal)
 {
+    std::string fractional_binary("");
     while (true)
     {
         decimal *= 2;
@@ -118,13 +128,13 @@ void BinaryConversor::decimal_to_bin(float decimal, std::string& bin)
         // Append a 1 or a 0 at the end of the binary string
         if (decimal >= 1)
         {
-            bin += "1";
+            fractional_binary.append("1");
             // Update the number for the next iteration
             decimal--;
         }
         else
         {
-            bin += "0";
+            fractional_binary.append("0");
         }
         
         // Check for breaking the loop
@@ -133,35 +143,183 @@ void BinaryConversor::decimal_to_bin(float decimal, std::string& bin)
             break;
         }
     }
+
+    return fractional_binary;
+}
+
+// Convert the decimal part of a float into its binary representation
+std::string BinaryConversor::dec64_to_bin(double decimal)
+{
+    std::string fractional_binary("");
+    while (true)
+    {
+        decimal *= 2;
+
+        // Append a 1 or a 0 at the end of the binary string
+        if (decimal >= 1)
+        {
+            fractional_binary.append("1");
+            // Update the number for the next iteration
+            decimal--;
+        }
+        else
+        {
+            fractional_binary.append("0");
+        }
+
+        // Check for breaking the loop
+        if (!decimal)
+        {
+            break;
+        }
+    }
+
+    return fractional_binary;
+}
+
+void set_mantissa_size(std::string& mantissa, unsigned short size)
+{
+    if (mantissa.size() < size)
+    {
+        while (mantissa.size() < size)
+        {
+            mantissa = mantissa + "0";
+        }
+    }
+    else
+    {
+        int diff = mantissa.size() - size;
+        mantissa = std::string(mantissa.begin(), mantissa.end() - diff);
+    }
+}
+
+void set_exponent_size(std::string& exponent, unsigned short size)
+{
+    while (exponent.size() < size)
+    {
+        exponent = "0" + exponent;
+    }
+}
+
+bin BinaryConversor::float64_to_bin(double number)
+{
+    std::string integer_part = uint_to_bin((int)abs(number));
+    std::string fractional_part = dec64_to_bin(abs(number - (int)number));
+
+    // Get the sign bit
+    std::string sign_bit = number < 0 ? "1" : "0";
+
+    // Get the exponent and fix the size to 11 bits if needed
+    std::string exponent = uint_to_bin(1023 + integer_part.size() - 1);
+    set_exponent_size(exponent, 11);
+
+    // Get the mantissa from the bits of the binary number excepting the first one
+    std::string binary_string(integer_part + fractional_part);
+    std::string mantissa(binary_string.begin() + 1, binary_string.end());
+
+    // Set the size of the mantissa always to 52 bits
+    set_mantissa_size(mantissa, 52);
+
+    // Get the binary representation of the IEEE-754 standard form for 64bits floating point numbers
+    return bin(sign_bit + exponent + mantissa, sizeof(double));
+}
+
+bin BinaryConversor::float32_to_bin(float number)
+{
+    std::string integer_part = uint_to_bin((int)abs(number));
+    std::string fractional_part = dec32_to_bin(abs(number - (int)number));
+
+    // Get the sign bit
+    std::string sign_bit = number < 0 ? "1" : "0";
+
+    // Get the exponent and fix the size to 8 bits if needed
+    std::string exponent = uint_to_bin(127 + integer_part.size() - 1);
+    set_exponent_size(exponent, 8);
+
+
+    // Get the mantissa from the bits of the binary number excepting the first one
+    std::string binary_string(integer_part + fractional_part);
+    std::string mantissa(binary_string.begin() + 1, binary_string.end());
+
+    // Set the size of the mantissa always to 23 bits
+    set_mantissa_size(mantissa, 23);
+
+
+    // Get the binary representation of the IEEE-754 standard form for 32bits floating point numbers
+    return bin(sign_bit + exponent + mantissa, sizeof(float));
+}
+
+/*
+********************************
+*
+*   Public member functions
+*
+********************************
+*/
+
+const bin BinaryConversor::to_bin(const char number)
+{
+    return uint8_to_bin(number);
+}
+
+// Get the binary representation of a signed short type number
+const bin BinaryConversor::to_bin(const short number)
+{
+    return int16_to_bin(number);
 }
 
 // Get the binary representation of a signed int type number
-const std::string BinaryConversor::to_bin(const int& number)
+const bin BinaryConversor::to_bin(const unsigned short number)
 {
-    std::string bin("");
-    number < 0 ? negative_int_to_bin(number, bin) : positive_int_to_bin(number, bin);
-    return bin;
+    return uint16_to_bin(number);
+}
+
+// Get the binary representation of a signed int type number
+const bin BinaryConversor::to_bin(const int number)
+{
+    return int32_to_bin(number);
+}
+
+// Get the binary representation of a unsigned int type number
+const bin BinaryConversor::to_bin(const unsigned int number)
+{
+    return uint32_to_bin(number);
+}
+
+// Get the binary representation of a signed long type number
+const bin BinaryConversor::to_bin(const long number)
+{
+    return int32_to_bin((int)number);
+}
+
+// Get the binary representation of a unsigned long type number
+const bin BinaryConversor::to_bin(const unsigned long number)
+{
+    return uint32_to_bin((unsigned int)number);
 }
 
 // Get the binary representation of a signed long long type number
-const std::string BinaryConversor::to_bin(const long long& number)
+const bin BinaryConversor::to_bin(const long long number)
 {
-    std::string bin("");
-    number < 0 ? negative_int_to_bin(number, bin) : positive_long_long_to_bin(number, bin);
-    return bin;
+    return int64_to_bin(number);
 }
 
-// Get the binary representation of a signed float type number
-const std::string BinaryConversor::to_bin(const float& number)
+// Get the binary representation of a unsigned long long type number
+const bin BinaryConversor::to_bin(const unsigned long long number)
 {
-    // Get the integer part in binary
-    std::string integer_part = to_bin((int)number);
-    // Get the decimal part in binary
-    std::string decimal_part("");
-    decimal_to_bin(abs(number - (int)number), decimal_part);
-
-    // Concatenate the string with the floating point
-    std::string bin(integer_part + "." + decimal_part);
-    return bin;
+    return uint64_to_bin(number);
 }
+
+// Get the binary representation of a 32 bits float type number
+const bin BinaryConversor::to_bin(const float number)
+{
+    return float32_to_bin(number);
+}
+
+// Get the binary representation of a 64 bits float type number
+const bin BinaryConversor::to_bin(const double number)
+{
+    return float64_to_bin(number);
+}
+
 
